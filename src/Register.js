@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Navigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 
-const Register = () => {
+const Register = (props) => {
+  let history = useNavigate(); //use for Navigate on Previous
   const [data, setData] = useState({
     first_name: "", last_name: "", email: "", password: "",
   })
@@ -20,7 +21,7 @@ const Register = () => {
     }
     console.log("data2 " + (sendData))
     axios.post('http://localhost/php-react/insert.php', sendData).then((result) => {
-      if (result.data.Status == 'Invalid') { alert('Invalid User') } else { Navigate(`/dashboard`); }
+      if (result.data.Status == 'Invalid') { alert('Invalid User') } else { history(`/dashboard`); }
     })
   }
   return (
